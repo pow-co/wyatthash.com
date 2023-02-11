@@ -1,6 +1,8 @@
 
 require('dotenv').config()
 
+import { notifyRocketChat } from './src/rocketchat'
+
 import { Script, Address, Transaction } from 'bsv'
 
 import * as models  from './src/models'
@@ -111,6 +113,8 @@ async function run() {
 
     const amount = balances[0].value - 2180
 
+    const usd_balance = balances[0].value_usd
+
     if (amount < 218000) { return }
 
     const url = `https://midasvalley.net/api/v1/rewards/new/${origin}/${amount}-USD`
@@ -183,6 +187,8 @@ async function run() {
     publish('wyatthash', record.type, record.payload)
 
     console.log('event.record.created', record.toJSON())
+
+    notifyRocketChat(`I split a reward of $${usd_balance} to HASH token holders: https://whatsonchain.com/tx/${tx.hash}`)
 
     return record
 
