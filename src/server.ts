@@ -66,6 +66,16 @@ server.route({
   }
 })
 
+server.route({
+  method: 'GET',
+  path: '/api/v1/hash_token_rewards',
+  handler: handlers.HashTokenRewards.index,
+  options: {
+    description: 'History of Rewards Paid to HASH Token Holders',
+    tags: ['api', 'hash_token_rewards']
+  }
+})
+
 /*server.route({
   method: 'GET',
   path: '/api/v1/braiins/stats/json/btc',
@@ -99,11 +109,11 @@ export async function start() {
       info: {
         title: 'API Docs',
         version: Pack.version,
-        description: 'Developer API Documentation \n\n *** DEVELOPERS *** \n\n Edit this file under `swaggerOptions` in `src/server.ts` to better describe your service.'
+        description: 'For Developer Integrations With WyattHASH Boostpow & Bitcoin Mining Platform'
       },
-      schemes: ['https'],
-      host: 'http://localhost:8000',
-      documentationPath: '/',
+      schemes: ['https', 'http'],
+      host: 'wyatthash.com',
+      documentationPath: '/api',
       grouping: 'tags'
     }
 
