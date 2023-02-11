@@ -13,8 +13,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Migrator
+          command: sudo npm install -g sequelize-cli
+      - run:
           name: Install Dependencies
           command: npm install
+      - run:
+          name: Install Dependencies
+          command: npm run db:migrate -- --url=postgres://postgres:letmein@postgres:5432/database
       - run:
           name: Run Main Tests
           command: npm test
@@ -44,27 +50,8 @@ jobs:
             docker login --username $DOCKER_USER --password $DOCKER_PASSWORD
             docker push $DOCKER_REPO:$CIRCLE_BRANCH
 
-  deploy:
-    machine: true
-    steps:
-      - run:
-          name: Deploy to Web Servers
-          command: ssh $DEPLOY_HOST "$DEPLOY_COMMAND"
-
-
 workflows:
   version: 2
-  build_and_deploy:
+  build_and_release:
     jobs:
-      - build
-      - build_docker:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - build_docker
-          filters:
-            branches:
-              only:
-                - master
-
+      - build_docker
