@@ -34,7 +34,7 @@
       "polynym": "^1.0.7",
       "prom-client": "^14.0.1",
       "prompt-async": "^0.9.9",
-      "rabbi": "^1.20.0",
+      "rabbi": "^1.21.4",
       "sequelize": "^6.28.0",
       "stag-wallet": "^0.0.13",
       "winston": "^3.3.3",

@@ -27,8 +27,7 @@ import * as polynym from 'polynym'
 
 import delay from 'delay'
 
-//import { publish } from 'rabbi'
-import { publish } from '/Users/zyler/github/rabbijs/rabbi'
+import { publish } from 'rabbi'
 
 async function getRevenueWalletForDomain(domain: string): Promise<Wallet> {
 
