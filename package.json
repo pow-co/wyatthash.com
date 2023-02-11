@@ -1,6 +1,6 @@
 {
-   "name": "rabbi_cli_app",
-   "version": "0.1.2",
+   "name": "wyatthash.com",
+   "version": "0.0.1",
    "private": true,
    "description": "",
    "scripts": {
@@ -13,11 +13,8 @@
       "ci": "circleci local execute --job build",
       "commit": "npx cz"
    },
-   "bin": {
-      "rabbi": "./dist/bin/cli.js"
-   },
    "keywords": [],
-   "author": "Zyler",
+   "author": "Powco",
    "license": "",
    "dependencies": {
       "@hapi/hapi": "^20.2.2",
@@ -34,9 +31,11 @@
       "nconf": "^0.12.0",
       "node-cron": "^3.0.0",
       "pg": "^8.4.0",
+      "polynym": "^1.0.7",
       "prom-client": "^14.0.1",
       "prompt-async": "^0.9.9",
-      "rabbi": "^1.19.4",
+      "rabbi": "^1.20.0",
+      "sequelize": "^6.28.0",
       "stag-wallet": "^0.0.13",
       "winston": "^3.3.3",
       "ws": "^8.2.0"

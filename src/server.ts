@@ -66,6 +66,25 @@ server.route({
   }
 })
 
+/*server.route({
+  method: 'GET',
+  path: '/api/v1/braiins/stats/json/btc',
+  handler: handlers.Brains.stats_json_btc,
+  options: {
+    description: 'Return BTC stats for braiins pool'
+  }
+})
+
+server.route({
+  method: 'GET',
+  path: '/api/v1/braiins/accounts/workers/json/btc',
+  handler: handlers.Braiins.workers_json_btc,
+  options: {
+    description: 'Return BTC Workers for braiins pool account'
+  }
+})
+*/
+
 var started = false
 
 export async function start() {

@@ -13,7 +13,7 @@ import { Transaction } from 'bsv'
 
 import { cpus } from 'os'
 
-const queue = require('fastq').promise(worker, cpus())
+const queue = require('fastq').promise(worker, process.env.CPUS || 4)
 
 const axios = require('axios')
 
