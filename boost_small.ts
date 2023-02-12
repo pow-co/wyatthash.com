@@ -1,9 +1,6 @@
 
 require('dotenv').config()
 
-console.log(process.env.BSV_PRIVATE_KEY)
-console.log(process.env.stag_private_key)
-
 import { log } from 'rabbi'
 
 import { boostpow } from 'stag-wallet'
@@ -20,7 +17,7 @@ async function run() {
 
       difficulty: 0.0001,
 
-      content: 'f9e6c4f0ac7219257e1276cd23c1bff5e5088204ff4e3471786c6252fb00f01e',
+      content: '598cda9fbe6ef960c514acff63c88719feafede4a5aa65b2d2fbe90a47734972',
       
       satoshis: 1000
 
@@ -28,7 +25,8 @@ async function run() {
 
     console.log(job)
 
-    const result = await axios.get(`https://pow.co/api/v1/boost/jobs/${job.txid}`)
+    //const result = await axios.get(`https://pow.co/api/v1/boost/jobs/${job.txid}`)
+    const result = await axios.get(`http://localhost:8000/api/v1/boost/jobs/${job.txid}`)
 
     console.log('result.data', result.data)
 

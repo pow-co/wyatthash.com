@@ -3,7 +3,11 @@ require('dotenv').config()
 
 import { log } from 'rabbi'
 
-import { Job } from 'boostpow'
+import { EventEmitter } from 'events'
+
+const events = new EventEmitter()
+
+import { Job, BoostPowJobProof as Proof } from 'boostpow'
 
 import { Miner } from 'boostminer'
 
@@ -18,25 +22,44 @@ const queue = require('fastq').promise(worker, process.env.CPUS || 4)
 const axios = require('axios')
 
 const miner = new Miner({
-  privatekey: process.env.stag_private_key
+
+  privatekey: process.env.boostminer_private_key
+
 })
 
 async function worker(job: Job, done) {
 
+  console.log('done', done)
+
+  function handleJobRedeemed() {
+
+    if (typeof done === 'function') {
+
+      done()
+
+    }
+
+    miner.stop()
+
+  }
 
   if (job.difficulty <= 0.025) {
 
-    console.log('job.mining', job)
+    log.info('job.mining', job)
+
+    events.on(`boostpow.job.${job.txid}.redeemed`, handleJobRedeemed)
 
     const {txhex} = await miner.workJob(job.txid)
 
     const tx = new Transaction(txhex)
 
-    console.log('job.mining.result', { txhex, txid: tx.hash })
+    log.info('job.mining.result', { txhex, txid: tx.hash })
 
     await broadcast(txhex)
 
     const { data } = await axios.post(`https://pow.co/api/v1/boost/proofs/${tx.hash}`)
+
+    events.on(`boostpow.job.${job.txid}.redeemed`, handleJobRedeemed)
 
     done(data)
 
@@ -48,7 +71,7 @@ async function worker(job: Job, done) {
 
 }
 
-async function run() {
+export default async function main() {
 
   try {
 
@@ -70,6 +93,11 @@ async function run() {
 
     })
 
+    stream.on('boostpow.proof', async (proof: Proof) => {
+    
+      events.emit(`boostpow.job.${proof.spentTxid}.redeemed`, proof)
+    })
+
   } catch(error) {
 
     log.error('mine.small.error', error)
@@ -78,5 +106,9 @@ async function run() {
 
 }
 
-run()
+if (require.main === module) {
+
+  main()
+
+}
 
