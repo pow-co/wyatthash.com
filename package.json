@@ -36,7 +36,7 @@
       "prom-client": "^14.0.1",
       "prompt-async": "^0.9.9",
       "rabbi": "^1.21.4",
-      "sequelize": "^6.28.0",
+      "sequelize": "^6.28.2",
       "stag-wallet": "^0.6.0",
       "winston": "^3.3.3",
       "ws": "^8.2.0"
